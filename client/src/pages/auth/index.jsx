@@ -5,13 +5,29 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client";
-import { SIGNUP_ROUTE } from "@/utils/constants";
+import { SIGNUP_ROUTE, LOGIN_ROUTE } from "@/utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // Login Validation
+  const validateLogin = () => {
+    if (!email.length) {
+      toast.error("Email is required.");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required.");
+      return false;
+    }
+    return true;
+  };
+
+  // Signup Validation
   const validateSignup = () => {
     if (!email.length) {
       toast.error("Email is required.");
@@ -27,14 +43,41 @@ const Auth = () => {
     }
     return true;
   };
-  const handleLogin = async () => {};
-  const handleSignup = async () => {
-    if (validateSignup()) {
-      const response = await apiClient.post(SIGNUP_ROUTE, { email, password });
+
+  // Login Handler
+  const handleLogin = async () => {
+    if (validateLogin()) {
+      const response = await apiClient.post(
+        LOGIN_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      // Check profile setup
+      if (response.data.user.id) {
+        if (response.data.user.profileSetup) navigate("/chat");
+        else navigate("/profile");
+      }
       console.log({ response });
     }
   };
 
+  // Signup Handler
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      const response = await apiClient.post(
+        SIGNUP_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      if (response.status === 201) {
+        toast.success("Account created successfully!");
+        navigate("/profile");
+      }
+      console.log({ response });
+    }
+  };
+
+  // Signup and Login Form
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
       <div
@@ -51,7 +94,7 @@ const Auth = () => {
             </p>
           </div>
           <div className="flex items-center justify-center w-full">
-            <Tabs className="w-3/4">
+            <Tabs className="w-3/4" defaultValue="login">
               <TabsList className="bg-transparent rounded-none w-full">
                 <TabsTrigger
                   value="login"
