@@ -30,7 +30,6 @@ const Auth = () => {
   const handleLogin = async () => {};
   const handleSignup = async () => {
     if (validateSignup()) {
-      console.log("SIGNUP_ROUTE:", SIGNUP_ROUTE);
       const response = await apiClient.post(SIGNUP_ROUTE, { email, password });
       console.log({ response });
     }
