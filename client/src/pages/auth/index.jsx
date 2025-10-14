@@ -1,17 +1,40 @@
-import Victory from "@/assets/victory.svg";
-import Background from "@/assets/social.png";
+import Background from "@/assets/night-talk.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
+import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
+import { SIGNUP_ROUTE } from "@/utils/constants";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const validateSignup = () => {
+    if (!email.length) {
+      toast.error("Email is required.");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required.");
+      return false;
+    }
+    if (password != confirmPassword) {
+      toast.error("Password and confirm password does not match.");
+      return false;
+    }
+    return true;
+  };
   const handleLogin = async () => {};
-  const handleSignup = async () => {};
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      console.log("SIGNUP_ROUTE:", SIGNUP_ROUTE);
+      const response = await apiClient.post(SIGNUP_ROUTE, { email, password });
+      console.log({ response });
+    }
+  };
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
@@ -22,8 +45,7 @@ const Auth = () => {
         <div className="flex flex-col gap-10 items-center justify-center">
           <div className="flex items-center justify-center flex-col">
             <div className="flex items-center justify-center">
-              <h1 className="text-5xl font-bold md:text-6xl">Welcome</h1>
-              <img src={Victory} alt="Victory Emoji" className="h-[100px]" />
+              <h1 className="text-5xl font-bold md:text-6xl">Welcome!</h1>
             </div>
             <p className="font-medium text-center">
               Fill in the details to get started with the best chat app!
@@ -94,7 +116,11 @@ const Auth = () => {
           </div>
         </div>
         <div className="hidden xl:flex justify-center items-center">
-          <img src={Background} alt="background login" className="p-6" />
+          <img
+            src={Background}
+            alt="background login"
+            className="items-center justify-center p-10"
+          />
         </div>
       </div>
     </div>
