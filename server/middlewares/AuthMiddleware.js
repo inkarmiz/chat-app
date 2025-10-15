@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+// Middleware to verify JWT token
 export const verifyToken = (request, response, next) => {
     const token = request.cookies.jwt;
     if (!token) return response.status(401).send("You are not authenticated.");

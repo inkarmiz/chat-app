@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { hash, genSalt } from "bcrypt";
 
+// User schema definition
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -33,11 +34,13 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+// Pre-save hook to hash password before saving
 userSchema.pre("save", async function (next) {
     const salt = await genSalt();
     this.password = await hash(this.password, salt);
     next();
 });
 
+// User model creation
 const User = mongoose.model("Users", userSchema);
 export default User;

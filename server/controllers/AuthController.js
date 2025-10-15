@@ -2,11 +2,15 @@ import { compare } from "bcrypt";
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken"
 
+// Token max age set to 3 days
 const maxAge = 3 * 24 * 60 * 60 * 1000;
+
+// Function to create JWT token
 const createToken = (email, userId) => {
     return jwt.sign({ email, userId }, process.env.JWT_KEY, { expiresIn: maxAge })
 };
 
+// Signup controller
 export const signup = async (request, response, next) => {
     try {
         const { email, password } = request.body;
@@ -32,6 +36,7 @@ export const signup = async (request, response, next) => {
     }
 };
 
+// Login controller
 export const login = async (request, response, next) => {
     try {
         const { email, password } = request.body;
@@ -42,11 +47,12 @@ export const login = async (request, response, next) => {
         if (!user) {
             return response.status(404).send("User with this email does not exist.");
         }
+        // Compare the password with hashed password
         const auth = await compare(password, user.password);
         if (!auth) {
             return response.status(400).send("Incorrect Password.");
         }
-
+        // Sets JWT token and sends it to the client, usually stored in a cookie or local storage
         response.cookie("jwt", createToken(email, user.id), {
             maxAge,
             secure: true,
@@ -69,6 +75,7 @@ export const login = async (request, response, next) => {
     }
 };
 
+// User info retrieval controller
 export const getUserInfo = async (request, response, next) => {
     try {
         const userData = await User.findById(request.userId);
