@@ -20,6 +20,7 @@ const Profile = () => {
   const [hovered, setHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
 
+  // Populate fields if profile is already set up
   useEffect(() => {
     if (userInfo.profileSetup) {
       setFirstName(userInfo.firstName);
@@ -28,6 +29,7 @@ const Profile = () => {
     }
   }, [userInfo]);
 
+  // Validation before saving profile
   const validateProfile = () => {
     if (!firstName) {
       toast.error("First Name is required.");
@@ -40,9 +42,11 @@ const Profile = () => {
     return true;
   };
 
+  // Save changes to profile
   const saveChanges = async () => {
     if (validateProfile()) {
       try {
+        // API call to update profile
         const response = await apiClient.post(
           UPDATE_PROFILE_ROUTE,
           { firstName, lastName, color: selectedColor },
@@ -58,6 +62,8 @@ const Profile = () => {
       }
     }
   };
+
+  // Profile UI
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10">
       <div className="flex flex-col gap-10 w-[80vw] md:w-max">
