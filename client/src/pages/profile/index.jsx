@@ -1,5 +1,5 @@
 import { useAppStore } from "@/store";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -8,7 +8,12 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { UPDATE_PROFILE_ROUTE } from "@/utils/constants";
+import {
+  ADD_PROFILE_IMAGE_ROUTE,
+  HOST,
+  REMOVE_PROFILE_IMAGE_ROUTE,
+  UPDATE_PROFILE_ROUTE,
+} from "@/utils/constants";
 import { apiClient } from "@/lib/api-client";
 
 const Profile = () => {
@@ -19,6 +24,8 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [hovered, setHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
+  // File input reference
+  const fileInputRef = useRef(null);
 
   // Populate fields if profile is already set up
   useEffect(() => {
@@ -26,6 +33,9 @@ const Profile = () => {
       setFirstName(userInfo.firstName);
       setLastName(userInfo.lastName);
       setSelectedColor(userInfo.color);
+    }
+    if (userInfo.image) {
+      setImage(`${HOST}/${userInfo.image}`);
     }
   }, [userInfo]);
 
@@ -63,11 +73,58 @@ const Profile = () => {
     }
   };
 
+  // Navigate back to chat if profile is set up
+  const handleNavigate = () => {
+    if (userInfo.profileSetup) {
+      navigate("/chat");
+    } else {
+      toast.error("Please setup profile.");
+    }
+  };
+
+  // Handle file input click
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
+
+  // Handle image change
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    console.log({ file });
+    if (file) {
+      const formData = new FormData();
+      formData.append("profile-image", file);
+      const response = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, formData, {
+        withCredentials: true,
+      });
+      if (response.status === 200 && response.data.image) {
+        setUserInfo({ ...userInfo, image: response.data.image });
+        toast.success("Image updated successfully!");
+      }
+    }
+  };
+
+  // Handle delete image
+  const handleDeleteImage = async () => {
+    try {
+      const response = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        setUserInfo({ ...userInfo, image: null });
+        setImage(null);
+        toast.success("Image removed successfully!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Profile UI
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10">
       <div className="flex flex-col gap-10 w-[80vw] md:w-max">
-        <div>
+        <div onClick={handleNavigate}>
           <IoArrowBack className="text-4xl lg:text-6xl text-white/90 cursor-pointer" />
         </div>
         <div className="grid grid-cols-2">
@@ -96,7 +153,10 @@ const Profile = () => {
               )}
             </Avatar>
             {hovered && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50 ring-fuchsia-50 rounded-full">
+              <div
+                className="absolute inset-0 flex items-center justify-center bg-black/50 ring-fuchsia-50 rounded-full"
+                onClick={image ? handleDeleteImage : handleFileInputClick}
+              >
                 {image ? (
                   <FaTrash className="text-white text-3xl cursor-pointer" />
                 ) : (
@@ -104,7 +164,16 @@ const Profile = () => {
                 )}
               </div>
             )}
-            {/*<input type="text"/>*/}
+            {
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleImageChange}
+                name="profile-image"
+                accept=".png, .jpg, .jpeg, .svg, .webp"
+              />
+            }
           </div>
           <div className="flex min-w-32 md:min-w-64 flex-col gap-5 text-white items-center justify-center">
             <div className="w-full">

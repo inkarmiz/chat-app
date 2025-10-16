@@ -24,6 +24,9 @@ app.use(cors({
     credentials: true,
 }));
 
+// Static folder for profile images
+app.use("/uploads/profiles", express.static("uploads/profiles"));
+
 // Parsing middleware
 app.use(cookieParser());
 app.use(express.json());
