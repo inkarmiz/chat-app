@@ -2,7 +2,7 @@ import { apiClient } from "@/lib/api-client";
 import { useAppStore } from "@/store";
 import { GET_ALL_MESSAGES_ROUTE } from "@/utils/constants";
 import moment from "moment";
-import { use, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const MessageContainer = () => {
   const scrollRef = useRef();
