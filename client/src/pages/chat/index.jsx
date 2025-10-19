@@ -9,7 +9,7 @@ import ChatContainer from "./components/chat-container";
 // If profile is not setup, redirect to /profile, else show chat
 const Chat = () => {
   // Get userInfo from the global store
-  const { userInfo } = useAppStore();
+  const { userInfo, selectedChatType } = useAppStore();
   // Use navigate function from react-router-dom for redirection
   const navigate = useNavigate();
   // On component mount or when userInfo changes, check if profile is set up
@@ -22,8 +22,11 @@ const Chat = () => {
   return (
     <div className="flex h-[100vh] text-white overflow-hidden">
       <ContactsContainer />
-      {/* <EmptyChatContainer /> */}
-      {/* <ChatContainer /> */}
+      {selectedChatType === undefined ? (
+        <EmptyChatContainer />
+      ) : (
+        <ChatContainer />
+      )}
     </div>
   );
 };
