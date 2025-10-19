@@ -4,6 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import mongoose from "mongoose";
 import authRoutes from "./routes/AuthRoutes.js";
+import contactsRoutes from "./routes/ContactRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/contacts", contactsRoutes);
 
 // Start the server and connect to the database
 const server = app.listen(port, () => {
