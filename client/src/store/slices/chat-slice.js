@@ -11,4 +11,23 @@ export const createChatSlice = (set, get) => ({
             selectedChatData: undefined,
             selectedChatMessages: [],
         }),
+    addMessage: (message) => {
+        const selectedChatMessages = get().selectedChatMessages;
+        const selectedChatType = get().selectedChatType;
+        set({
+            selectedChatMessages: [
+                ...selectedChatMessages, {
+                    ...message,
+                    recipient:
+                        selectedChatType === "channel"
+                            ? message.recipient // Keep full recipient data for channel chats
+                            : message.recipient._id, // Store only ID for user chats
+                    sender:
+                        selectedChatType === "channel"
+                            ? message.sender // Keep full recipient data for channel chats
+                            : message.sender._id, // Store only ID for user chats
+                }
+            ],
+        });
+    }
 });
