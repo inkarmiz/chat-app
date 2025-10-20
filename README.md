@@ -45,6 +45,17 @@ Privet is a full-featured real-time messaging application inspired by WhatsApp, 
 
 ## ⚙️ Installation & Setup
 
+### 1️⃣ Prerequisites
+
+Before running this project, make sure you have the following installed on your machine:
+
+- [Node.js (v18+)](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- [MongoDB Community Edition](https://www.mongodb.com/docs/manual/administration/install-community/?operating-system=macos&macos-installation-method=tarball#std-label-install-mdb-community-edition)
+
+> 📝 **Note:**  
+> You can follow MongoDB’s official installation guide [here](https://www.mongodb.com/docs/manual/administration/install-community/).
+
 ### 1️⃣ Clone the Repository
 
 ```bash
