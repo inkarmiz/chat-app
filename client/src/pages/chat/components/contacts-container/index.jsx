@@ -35,6 +35,15 @@ const ContactsContainer = () => {
         setDirectMessagesContacts(response.data.contacts);
       }
     };
+
+    /**
+     * Fetch channels for the current user and store them in global state.
+     *
+     * - Sends the request with credentials (cookies) so authenticated endpoints work.
+     * - On success, updates the store with the received channels via setChannels.
+     *
+     * @returns {Promise<void>}
+     */
     const getChannels = async () => {
       const response = await apiClient.get(GET_USER_CHANNELS_ROUTE, {
         withCredentials: true,
