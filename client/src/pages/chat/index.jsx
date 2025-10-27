@@ -26,7 +26,6 @@ const Chat = () => {
     }
   }, [userInfo, navigate]);
 
-  console.log("DOWNLOAD ", isDownloading);
   return (
     <div className="flex h-[100vh] text-white overflow-hidden">
       {isUploading && (
