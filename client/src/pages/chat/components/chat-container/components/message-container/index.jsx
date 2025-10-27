@@ -15,6 +15,8 @@ const MessageContainer = () => {
     userInfo,
     selectedChatMessages,
     setSelectedChatMessages,
+    setIsDownloading,
+    setFileDownloadProgress,
   } = useAppStore();
   const [showImage, setShowImage] = useState(false);
   const [imageURL, setImageURL] = useState(null);
@@ -66,8 +68,15 @@ const MessageContainer = () => {
    * @returns {Promise<void>} Resolves when the download has been triggered.
    */
   const downloadFile = async (fileUrl) => {
+    setIsDownloading(true);
+    setFileDownloadProgress(0);
     const response = await apiClient.get(`${HOST}/${fileUrl}`, {
       responseType: "blob",
+      onDownloadProgress: (progressEvent) => {
+        const { loaded, total } = progressEvent;
+        const percentCompleted = Math.round((loaded * 100) / total);
+        setFileDownloadProgress(percentCompleted);
+      },
     });
     // Converts the binary data into a temporary URL that the browser can use to reference the file in memory.
     const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
@@ -86,6 +95,8 @@ const MessageContainer = () => {
     link.remove();
     // Revokes the object URL to free up browser memory.
     window.URL.revokeObjectURL(urlBlob);
+    setIsDownloading(false);
+    setFileDownloadProgress(0);
   };
 
   // Function to render messages with date separators
