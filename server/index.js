@@ -29,6 +29,7 @@ app.use(cors({
 
 // Serves files from a folder so they can be requested over HTTP
 app.use("/uploads/profiles", express.static("uploads/profiles"));
+app.use("/uploads/files", express.static("uploads/files"));
 
 // Parsing middleware
 app.use(cookieParser());
