@@ -9,6 +9,7 @@ Privet is a showcase project designed to demonstrate my skills in building moder
 - **🔐 User Authentication** — Secure signup and login using email/phone number and password (JWT).
 - **💬 Real-Time Chat** — Instant one-to-one and group messaging powered by Socket.IO and MongoDB.
 - **🗂️ Media Sharing** — Send and receive images and files.
+- **😄 Fun Conversations** — Emoji Support
 - **👥 Group Chats** — Create and manage group conversations with multiple participants.
 - **📱 Responsive Design** — Optimized for mobile, tablet, and desktop.
 - **🧑‍💼 Profile Management** — Update display name, profile picture, and profile color.
@@ -17,29 +18,19 @@ Privet is a showcase project designed to demonstrate my skills in building moder
 
 ## 🧩 Tech Stack
 
-**Frontend:**
+**Frontend** — Built with React
+**UI Components** — ShadCN
+**Styling** — Tailwind CSS
 
-- React
-- Tailwind CSS
-- Zustand
+**Authentication** — JWT Tokens
+**File Handling** — Multer for File and Image Storage
 
-**Backend:**
+**Real-time Messaging** — Sockets for Instant Communication
 
-- Node.js + Express.js
-- Socket.IO for real-time communication
-- RESTful API for user and chat management
-
-**Database and Storage:**
-
-- MongoDB
-
-**Authentication:**
-
-- JWT
-
-**Deployment:**
-
-- Render
+**Backend** — Node.js and Express
+**Database** — MongoDB for Efficient Data Storage
+**State Management** — Zustand for Seamless State Management
+**API Calls** — Axios for Smooth API Interactions
 
 ---
 

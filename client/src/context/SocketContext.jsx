@@ -24,8 +24,12 @@ export const SocketProvider = ({ children }) => {
 
       // Handle receiving messages
       const handleRecieveMessage = (message) => {
-        const { selectedChatData, selectedChatType, addMessage } =
-          useAppStore.getState();
+        const {
+          selectedChatData,
+          selectedChatType,
+          addMessage,
+          addContactsInDMContacts,
+        } = useAppStore.getState();
         // Only process the message if it belongs to the currently selected chat
         if (
           selectedChatType !== undefined &&
@@ -34,17 +38,25 @@ export const SocketProvider = ({ children }) => {
         ) {
           addMessage(message);
         }
+        // Order the DM contacts by their latest sent message date
+        addContactsInDMContacts(message);
       };
 
       const handleRecieveChannelMessage = (message) => {
-        const { selectedChatData, selectedChatType, addMessage } =
-          useAppStore.getState();
+        const {
+          selectedChatData,
+          selectedChatType,
+          addMessage,
+          addChannelInChannelList,
+        } = useAppStore.getState();
         if (
           selectedChatType !== undefined &&
           selectedChatData._id === message.channelId
         ) {
           addMessage(message);
         }
+        // Order the channels by their latest sent message date
+        addChannelInChannelList(message);
       };
       socket.current.on("receiveMessage", handleRecieveMessage);
       socket.current.on("recieve-channel-message", handleRecieveChannelMessage);
