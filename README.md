@@ -1,6 +1,6 @@
 # 💬 Privet — Real-Time Messaging Application
 
-Privet is a full-featured real-time messaging application inspired by WhatsApp, built to provide seamless one-on-one and group communication using modern web technologies. It supports text messaging, media sharing, and more — all within a clean, responsive UI.
+Privet is a showcase project designed to demonstrate my skills in building modern, real-time web applications. Inspired by WhatsApp, it features one-on-one and group chat functionality, real-time messaging, and media sharing — all presented within a clean, responsive user interface.
 
 > This is a personal project I developed in my free time, as I enjoy building and experimenting with new technologies to sharpen my skills and bring creative ideas to life.
 
