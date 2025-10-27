@@ -24,7 +24,7 @@ channelSchema.pre("save", function (next) {
 });
 
 channelSchema.pre("findOneAndUpdate", function (next) {
-    this.set = ({ updatedAt: Date.now() });
+    this.set({ updatedAt: Date.now() });
     next();
 });
 
