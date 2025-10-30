@@ -90,31 +90,32 @@ const Logo = () => {
   return (
     <div className="flex p-5  justify-start items-center gap-2">
       <svg
-        id="logo-38"
         width="78"
         height="32"
         viewBox="0 0 78 32"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {" "}
+        <defs>
+          <linearGradient
+            id="logoGradient"
+            x1="0"
+            y1="0"
+            x2="78"
+            y2="32"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#ec4899" />
+            <stop offset="50%" stop-color="#22c55e" />
+            <stop offset="100%" stop-color="#3b82f6" />
+          </linearGradient>
+        </defs>
+
         <path
-          d="M55.5 0H77.5L58.5 32H36.5L55.5 0Z"
-          className="ccustom"
-          fill="#8338ec"
-        ></path>{" "}
-        <path
-          d="M35.5 0H51.5L32.5 32H16.5L35.5 0Z"
-          className="ccompli1"
-          fill="#975aed"
-        ></path>{" "}
-        <path
-          d="M19.5 0H31.5L12.5 32H0.5L19.5 0Z"
-          className="ccompli2"
-          fill="#a16ee8"
-        ></path>{" "}
+          d="M5 25C15 10 25 10 35 25C45 40 55 10 65 5C70 3 75 8 75 16C75 24 65 30 55 28C45 26 35 18 25 20C15 22 10 28 5 25Z"
+          fill="url(#logoGradient)"
+        />
       </svg>
-      <span className="text-3xl font-semibold ">Syncronus</span>
+      <span className="text-3xl font-semibold ">Privet</span>
     </div>
   );
 };
