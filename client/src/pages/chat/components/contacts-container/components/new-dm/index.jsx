@@ -65,7 +65,7 @@ const NewDM = () => {
               onClick={() => setOpenNewContactModal(true)}
             />
           </TooltipTrigger>
-          <TooltipContent className="bg-[#1c1b1e] border-none mb-2 p-3 text-white">
+          <TooltipContent className="bg-[#241532] border-none mb-2 p-3 text-white">
             Select New Contract
           </TooltipContent>
         </Tooltip>
