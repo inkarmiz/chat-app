@@ -1,4 +1,4 @@
-import Background from "@/assets/night-talk.png";
+import Background from "@/assets/night-talk.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -82,18 +82,25 @@ const Auth = () => {
 
   // Signup and Login Form
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center">
+    <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-[#ad84d4]">
       <div
         className="h-[80vh] bgw border-2 border-white
       text-opacity-90 shadow-2xl w-[80vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] rounded-3xl grid xl:grid-cols-2"
       >
+        <div className="hidden xl:flex justify-center items-center">
+          <img
+            src={Background}
+            alt="background login"
+            className="items-center justify-center p-10"
+          />
+        </div>
         <div className="flex flex-col gap-10 items-center justify-center">
           <div className="flex items-center justify-center flex-col">
             <div className="flex items-center justify-center">
-              <h1 className="text-5xl font-bold md:text-6xl">Welcome!</h1>
+              <h1 className="text-5xl font-bold md:text-6xl">Privet friend!</h1>
             </div>
             <p className="font-medium text-center">
-              Fill in the details to get started with the best chat app!
+              Fill in the details to get started with the chat app!
             </p>
           </div>
           <div className="flex items-center justify-center w-full">
@@ -159,13 +166,6 @@ const Auth = () => {
               </TabsContent>
             </Tabs>
           </div>
-        </div>
-        <div className="hidden xl:flex justify-center items-center">
-          <img
-            src={Background}
-            alt="background login"
-            className="items-center justify-center p-10"
-          />
         </div>
       </div>
     </div>
