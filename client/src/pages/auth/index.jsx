@@ -1,4 +1,4 @@
-import Background from "@/assets/night-talk.png";
+import Background from "@/assets/night-talk.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -82,7 +82,7 @@ const Auth = () => {
 
   // Signup and Login Form
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-gradient-to-b from-pink-300 via-cyan-200 to-green-200">
+    <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-[#ad84d4]">
       <div
         className="h-[80vh] bgw border-2 border-white
       text-opacity-90 shadow-2xl w-[80vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] rounded-3xl grid xl:grid-cols-2"
